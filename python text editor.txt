@@ -1,0 +1,29 @@
+def  solution(queries):
+	result = []
+	input_str = ""
+	cursor_pos = 0
+
+	for query in queries:
+	    if query[0] == "Append":
+	        for char in query[1]:
+	            if cursor_pos == len(input_str):
+	                result.append(input_str)  # Add the current input_str to the result list
+	                input_str = ""  # Start a new line
+	            input_str += char
+	            cursor_pos += 1
+	    elif query[0] == "Backspace":
+	        if cursor_pos > 0:
+	            input_str = input_str[:cursor_pos - 1] + input_str[cursor_pos:]
+	            cursor_pos -= 1
+	    elif query[0] == "move":
+	        target_pos = int(query[1])
+	        if target_pos < cursor_pos:
+	            input_str = input_str[:target_pos]
+	            cursor_pos = target_pos
+	        elif target_pos > cursor_pos:
+	            input_str += " " * (target_pos - cursor_pos)
+	            cursor_pos = target_pos
+
+
+	result.append(input_str)
+	return result
